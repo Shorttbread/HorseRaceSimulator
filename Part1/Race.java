@@ -5,7 +5,7 @@ import java.lang.Math;
  * A three-horse race, each horse running in its own lane
  * for a given distance
  * 
- * @author McRaceface
+ * @author Luis Oliver
  * @version 1.0
  */
 public class Race
@@ -108,7 +108,7 @@ public class Race
     
         // Display the name of the winning horse
         if (winningHorse != null) {
-            System.out.println("And the winner is... " + winningHorse.getName() + "!");
+            System.out.println("And the winner is… " + winningHorse.getName() + "!");
         }
     }   
     
@@ -219,7 +219,6 @@ public class Race
         System.out.print('|');
     }
         
-    
     /***
      * print a character a given number of times.
      * e.g. printmany('x',5) will print: xxxxx
@@ -235,5 +234,4 @@ public class Race
             i = i + 1;
         }
     }
-    
 }
