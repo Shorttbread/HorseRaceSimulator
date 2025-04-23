@@ -1,7 +1,7 @@
 
 /**
  * @author Luis Oliver
- * @version Version 1
+ * @version Version 2
  */
 public class Horse
 {
