@@ -97,6 +97,13 @@ public class Race
                 finished = true;
                 winningHorse = lane3Horse; // Store the winning horse
             }
+            if (!finished &&
+            lane1Horse.hasFallen() &&
+            lane2Horse.hasFallen() &&
+            lane3Horse.hasFallen()) {
+            System.out.println("All horses have fallen. No winner.");
+            return;
+            }
     
             // Wait for 100 milliseconds
             try {
@@ -105,10 +112,11 @@ public class Race
                 e.printStackTrace();
             }
         }
+        
     
         // Display the name of the winning horse
         if (winningHorse != null) {
-            System.out.println("And the winner is… " + winningHorse.getName() + "!");
+            System.out.println("And the winner is... " + winningHorse.getName() + "!");
         }
     }   
     
@@ -163,24 +171,24 @@ public class Race
      * Print the race on the terminal
      */
     private void printRace()
-    {
-        System.out.print('\u000C');  //clear the terminal window
-        
-        multiplePrint('=',raceLength+3); //top edge of track
-        System.out.println();
-        
-        printLane(lane1Horse);
-        System.out.println();
-        
-        printLane(lane2Horse);
-        System.out.println();
-        
-        printLane(lane3Horse);
-        System.out.println();
-        
-        multiplePrint('=',raceLength+3); //bottom edge of track
-        System.out.println();    
-    }
+{
+    System.out.print('\u000C');  //clear the terminal window
+    
+    multiplePrint('=', raceLength + 30); // adds space for the information
+    System.out.println();
+    
+    printLane(lane1Horse, 1);
+    System.out.println();
+    
+    printLane(lane2Horse, 2);
+    System.out.println();
+    
+    printLane(lane3Horse, 3);
+    System.out.println();
+    
+    multiplePrint('=', raceLength + 30);
+    System.out.println();    
+}
     
     /**
      * print a horse's lane during the race
@@ -188,35 +196,25 @@ public class Race
      * |           X                      |
      * to show how far the horse has run
      */
-    private void printLane(Horse theHorse)
+    private void printLane(Horse theHorse, int laneNumber)
     {
-        //calculate how many spaces are needed before
-        //and after the horse
-        int spacesBefore = theHorse.getDistanceTravelled();
-        int spacesAfter = raceLength - theHorse.getDistanceTravelled();
-        
-        //print a | for the beginning of the lane
-        System.out.print('|');
-        
-        //print the spaces before the horse
-        multiplePrint(' ',spacesBefore);
-        
-        //if the horse has fallen then print dead
-        //else print the horse's symbol
-        if(theHorse.hasFallen())
-        {
-            System.out.print('\u2322');
-        }
-        else
-        {
-            System.out.print(theHorse.getSymbol());
-        }
-        
-        //print the spaces after the horse
-        multiplePrint(' ',spacesAfter);
-        
-        //print the | for the end of the track
-        System.out.print('|');
+    int spacesBefore = theHorse.getDistanceTravelled();
+    int spacesAfter = raceLength - theHorse.getDistanceTravelled();
+
+    System.out.print('|');
+    multiplePrint(' ', spacesBefore);
+
+    if (theHorse.hasFallen()) {
+        System.out.print("\u0058");
+    } else {
+        System.out.print(theHorse.getSymbol());
+    }
+
+    multiplePrint(' ', spacesAfter);
+    System.out.print('|');
+
+    
+    System.out.print(" " + theHorse.getName() + " (Current confidence " + theHorse.getConfidence() + ")");
     }
         
     /***
