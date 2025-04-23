@@ -1,92 +1,74 @@
 
 /**
- * Write a description of class Horse here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Luis Oliver
+ * @version Version 1
  */
 public class Horse
 {
     //Fields of class Horse
-    private char horseSymbol;
-    private String horseName;
-    private double horseConfidence;
-    private boolean hasFallen;
+    private final String name;
+    private char symbol;
     private int distanceTravelled;
+    private boolean hasFallen;
+    private double confidence;
 
-    
-      
-    //Constructor of class Horse
     /**
      * Constructor for objects of class Horse
      */
-    public Horse(char horseSymbol, String horseName, double horseConfidence)
-    {
-       this.horseSymbol = horseSymbol;
-       this.horseName = horseName;
-       setConfidence(horseConfidence);
-       this.hasFallen = false;
-       this.distanceTravelled = 0;
-    }
+    public Horse(char horseSymbol, String horseName, double horseConfidence) {
+        this.symbol = horseSymbol;
+        this.name = horseName;
+        setConfidence(horseConfidence);
+        this.distanceTravelled = 0;
+        this.hasFallen = false; }
     
     //Other methods of class Horse
-    public void fall()
-    {
+    public void fall() {
         this.hasFallen = true;
     }
     
-    public double getConfidence()
-    {
-        return horseConfidence;
-    }
-    
-    public int getDistanceTravelled()
-    {
-        return distanceTravelled;
-    }
-    
-    public String getName()
-    {
-        return horseName;
-    }
-    
-    public char getSymbol()
-    {
-        return horseSymbol;
-    }
-    
-    public void goBackToStart()
-    {
+    public void goBackToStart() {
         this.distanceTravelled = 0;
         this.hasFallen = false;
     }
     
-    public boolean hasFallen()
-    {
-        return hasFallen;
-    }
-
-    public void moveForward()
-    {
+    public void moveForward() {
         if (!hasFallen) {
             this.distanceTravelled++;
         }
     }
-
-    public void setConfidence(double newConfidence)
-    {
+    
+    public void setConfidence(double newConfidence) {
         if (newConfidence < 0) {
-        this.horseConfidence = 0;
-    } else if (newConfidence > 1) {
-        horseConfidence = 1;
-    } else {
-        this.horseConfidence = newConfidence;
-    }
-}
-    
-    public void setSymbol(char newSymbol)
-    {
-        this.horseSymbol = newSymbol;
+            this.confidence = 0.0;
+        } else if (newConfidence > 1) {
+            this.confidence = 1.0;
+        } else {
+            this.confidence = newConfidence;
+        }
     }
     
+    public void setSymbol(char newSymbol) {
+        this.symbol = newSymbol;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public char getSymbol() {
+        return this.symbol;
+    }
+
+    public double getConfidence() {
+        return this.confidence;
+    }
+
+    public int getDistanceTravelled() {
+        return this.distanceTravelled;
+    }
+
+    public boolean hasFallen() {
+        return this.hasFallen;
+    }
 }
