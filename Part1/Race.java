@@ -97,7 +97,7 @@ public class Race
                 finished = true;
                 winningHorse = lane3Horse; // Store the winning horse
             }
-            if (!finished &&
+            if (!finished && // incase all horses have fallen the race will end
             lane1Horse.hasFallen() &&
             lane2Horse.hasFallen() &&
             lane3Horse.hasFallen()) {
@@ -157,7 +157,7 @@ public class Race
      */
     private boolean raceWonBy(Horse theHorse)
     {
-        if (theHorse.getDistanceTravelled() >= raceLength) // ✅ updated here
+        if (theHorse.getDistanceTravelled() >= raceLength) // changed to >= instead of ==
         {
             return true;
         }
@@ -205,7 +205,7 @@ public class Race
     multiplePrint(' ', spacesBefore);
 
     if (theHorse.hasFallen()) {
-        System.out.print("\u0058");
+        System.out.print("\u0058"); //unicode changed from \u2322
     } else {
         System.out.print(theHorse.getSymbol());
     }
