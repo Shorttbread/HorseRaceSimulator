@@ -6,7 +6,7 @@ import java.lang.Math;
  * for a given distance
  * 
  * @author Luis Oliver
- * @version 1.0
+ * @version 2.0
  */
 public class Race
 {
@@ -149,7 +149,7 @@ public class Race
      */
     private boolean raceWonBy(Horse theHorse)
     {
-        if (theHorse.getDistanceTravelled() == raceLength)
+        if (theHorse.getDistanceTravelled() >= raceLength) // ✅ updated here
         {
             return true;
         }
