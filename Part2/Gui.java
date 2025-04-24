@@ -18,7 +18,7 @@ public class Gui {
         frame.setVisible(true);
         frame.setResizable(false);
     
-
+        // panel for the track to be shown in
         trackPanel = new JPanel();
 
         trackPanel.setBackground(new Color(20, 20, 20)); 
@@ -73,10 +73,40 @@ public class Gui {
 
         trackPanel.repaint();
 
-        });
-            
-    }
+        new Thread(() -> {
+            int x1 = 0, x2 = 0, x3 = 0;
+            int raceLength = 100;
 
+            while (true) {
+                // Simulate random movement
+                if (Math.random() < 0.9) x1++;
+                if (Math.random() < 0.8) x2++;
+                if (Math.random() < 0.75) x3++;
+
+                int lead = Math.max(x1, Math.max(x2, x3));
+
+            
+                horse1Label.setLocation(centerX - (lead - x1) * 10, horse1Label.getY());
+                
+                horse2Label.setLocation(centerX - (lead - x2) * 10, horse2Label.getY());
+                
+                horse3Label.setLocation(centerX - (lead - x3) * 10, horse3Label.getY());
+
+                if (x1 >= raceLength || x2 >= raceLength || x3 >= raceLength) {
+                    String winner = x1 >= raceLength ? "Horse 1" : x2 >= raceLength ? "Horse 2" : "Horse 3";
+                    JOptionPane.showMessageDialog(frame, "And the winner is... " + winner + "!");
+                    break;}
+                
+
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }).start();
+    });
+}
     public static void main(String[] args) {
             new Gui();
         }
