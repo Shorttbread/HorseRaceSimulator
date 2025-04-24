@@ -60,9 +60,10 @@ public class Gui {
         JLabel horse3Label = new JLabel(horse3Icon);
         
         int centerX = (trackPanel.getWidth() - 100) / 2;
-        horse1Label.setBounds(centerX, 30, 100, 100);
-        horse2Label.setBounds(centerX, 140, 100, 100);
-        horse3Label.setBounds(centerX, 250, 100, 100);
+        int baseY = (trackPanel.getHeight() - 100) / 2;
+        horse1Label.setBounds(centerX, baseY, 120, 120);
+        horse2Label.setBounds(centerX, baseY, 120, 120);
+        horse3Label.setBounds(centerX, baseY, 120, 120);
         
         trackPanel.add(horse1Label);
         trackPanel.add(horse2Label);
