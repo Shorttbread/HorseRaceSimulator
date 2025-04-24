@@ -5,7 +5,7 @@ import javax.swing.*;
  * A three-horse race for gui
  * 
  * @author Luis
- * @version 4.0
+ * @version 5.0
  */
 public class Race {
     private int raceLength;
@@ -59,6 +59,10 @@ public class Race {
             horse2Label.setLocation(centerX - (lead - lane2Horse.getDistanceTravelled()) * 10, 150);
             horse3Label.setLocation(centerX - (lead - lane3Horse.getDistanceTravelled()) * 10, 150);
 
+            horse1Label.setIcon(lane1Horse.getNextAnimationFrame());
+            horse2Label.setIcon(lane2Horse.getNextAnimationFrame());
+            horse3Label.setIcon(lane3Horse.getNextAnimationFrame());
+
             trackPanel.repaint();
 
             if (raceWonBy(lane1Horse)) {
@@ -93,7 +97,7 @@ public class Race {
     }
 
     private void moveHorse(Horse horse) {
-        double basicFall = 0.1;
+        double basicFall = 0.05;
         if (!horse.hasFallen()) {
             if (Math.random() < horse.getConfidence()) {
                 horse.moveForward();
