@@ -73,7 +73,8 @@ private int currentFrameIndex = 0;
     public boolean hasFallen() {
         return this.hasFallen;
     }
-    
+    //added to allow for animation of horse running to be
+
     public void setAnimationFrames(javax.swing.ImageIcon[] frames) {
         this.animationFrames = frames;
     }
