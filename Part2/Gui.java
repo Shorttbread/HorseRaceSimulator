@@ -68,6 +68,8 @@ public class Gui {
         trackPanel.add(horse2Label);
         trackPanel.add(horse3Label);
 
+        trackPanel.setComponentZOrder(backgroundLabel, trackPanel.getComponentCount() - 1);
+
         trackPanel.repaint();
 
         });
