@@ -31,6 +31,7 @@ public class Gui {
         startButton.addActionListener(e -> {
             System.out.println("started race");
 
+            //background image
             ImageIcon bgIcon = new ImageIcon("background.png");
             bgIcon = new ImageIcon(bgIcon.getImage().getScaledInstance(800, 400, Image.SCALE_SMOOTH));
             JLabel backgroundLabel = new JLabel(bgIcon);
@@ -42,15 +43,36 @@ public class Gui {
             Horse horse2 = new Horse('B', "Horse 2", 0.8);
             Horse horse3 = new Horse('C', "Horse 3", 0.75);
 
-            ImageIcon horse1Icon = new ImageIcon(new ImageIcon("horse1.png").getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH));
-            ImageIcon horse2Icon = new ImageIcon(new ImageIcon("horse2.png").getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH));
-            ImageIcon horse3Icon = new ImageIcon(new ImageIcon("horse3.png").getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH));
+            //animation icons
+            ImageIcon[] horse1Frames = new ImageIcon[] {
+                new ImageIcon("horse1_1.png"),
+                new ImageIcon("horse1_2.png"),
+                new ImageIcon("horse1_3.png"),
+                new ImageIcon("horse1_4.png")
+            };
+            ImageIcon[] horse2Frames = new ImageIcon[] {
+                new ImageIcon("horse2_1.png"),
+                new ImageIcon("horse2_2.png"),
+                new ImageIcon("horse2_3.png"),
+                new ImageIcon("horse2_4.png")
+            };
+            ImageIcon[] horse3Frames = new ImageIcon[] {
+                new ImageIcon("horse3_1.png"),
+                new ImageIcon("horse3_2.png"),
+                new ImageIcon("horse3_3.png"),
+                new ImageIcon("horse3_4.png")
+            };
 
-            JLabel horse1Label = new JLabel(horse1Icon);
-            JLabel horse2Label = new JLabel(horse2Icon);
-            JLabel horse3Label = new JLabel(horse3Icon);
+            //sets the animation frames
+            horse1.setAnimationFrames(horse1Frames);
+            horse2.setAnimationFrames(horse2Frames);
+            horse3.setAnimationFrames(horse3Frames);
+            JLabel horse1Label = new JLabel(horse1Frames[0]);
+            JLabel horse2Label = new JLabel(horse2Frames[0]);
+            JLabel horse3Label = new JLabel(horse3Frames[0]);
 
             int y = 160;
+
             horse1Label.setBounds(0, y, 120, 120);
             horse2Label.setBounds(0, y, 120, 120);
             horse3Label.setBounds(0, y, 120, 120);
@@ -63,7 +85,7 @@ public class Gui {
             trackPanel.repaint();
 
             
-            Race race = new Race(80, trackPanel, horse1Label, horse2Label, horse3Label);
+            Race race = new Race(50, trackPanel, horse1Label, horse2Label, horse3Label);
             race.addHorse(horse1, 1);
             race.addHorse(horse2, 2);
             race.addHorse(horse3, 3);
