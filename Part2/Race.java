@@ -5,90 +5,83 @@ import javax.swing.*;
  * A three-horse race for gui
  * 
  * @author Luis
- * @version 5.0
+ * @version 6.0
  */
 public class Race {
     private int raceLength;
-    private Horse lane1Horse;
-    private Horse lane2Horse;
-    private Horse lane3Horse;
+    private Horse[] horses = new Horse[6];
     private JPanel trackPanel;
-    private JLabel horse1Label;
-    private JLabel horse2Label;
-    private JLabel horse3Label;
+    private JLabel[] horseLabels = new JLabel[6];
 
     //constructor
-    public Race(int distance, JPanel trackPanel, JLabel horse1Label, JLabel horse2Label, JLabel horse3Label) {
+    public Race(int distance, JPanel panel, JLabel[] labels) {
         this.raceLength = distance;
-        this.trackPanel = trackPanel;
-        this.horse1Label = horse1Label;
-        this.horse2Label = horse2Label;
-        this.horse3Label = horse3Label;
+        this.trackPanel = panel;
+        this.horseLabels = labels;
     }
     //horse lanes 
-    public void addHorse(Horse theHorse, int laneNumber) {
-        if (laneNumber == 1) {
-            lane1Horse = theHorse;
-        } else if (laneNumber == 2) {
-            lane2Horse = theHorse;
-        } else if (laneNumber == 3) {
-            lane3Horse = theHorse;
+    public void addHorse(Horse theHorse, int pos) {
+        if (pos >= 0 && pos < 6) {
+            horses[pos] = theHorse;
         }
     }
     //to start race
     public void startRace() {
         boolean finished = false;
 
-        lane1Horse.goBackToStart();
-        lane2Horse.goBackToStart();
-        lane3Horse.goBackToStart();
+        for (int i=0; i < horses.length; i++) {
+            if (horses[i] !=null) {
+                horses[i].goBackToStart();
+            }
+        }
 
         Horse winningHorse = null;
 
-        int centerX = (trackPanel.getWidth() - 120) / 2;
-
         //moves horse
         while (!finished) {
-            moveHorse(lane1Horse);
-            moveHorse(lane2Horse);
-            moveHorse(lane3Horse);
-            int lead = Math.max(
-                lane1Horse.getDistanceTravelled(),
-                Math.max(lane2Horse.getDistanceTravelled(), lane3Horse.getDistanceTravelled())
-            );
-            //sets the location of each horse to the same starting position
-            horse1Label.setLocation(centerX - (lead - lane1Horse.getDistanceTravelled()) * 10, 125);
-            horse2Label.setLocation(centerX - (lead - lane2Horse.getDistanceTravelled()) * 10, 125);
-            horse3Label.setLocation(centerX - (lead - lane3Horse.getDistanceTravelled()) * 10, 125);
+            int lead = 0;
+            boolean allFallen = false;
 
-            //added to use the animation inside horse.java
-            horse1Label.setIcon(lane1Horse.getNextAnimationFrame());
-            horse2Label.setIcon(lane2Horse.getNextAnimationFrame());
-            horse3Label.setIcon(lane3Horse.getNextAnimationFrame());
+            for (int i=0; i < horses.length; i++) {
+                if (horses[i] != null) {
+                    moveHorse(horses[i]);
+                    if(horses[i].getDistanceTravelled() > lead) {
+                        lead = horses[i].getDistanceTravelled();
+                    }
+                }
+            }
 
+            int centerX = (trackPanel.getWidth() - 120) / 2;
+
+            for(int i=0; i< horses.length; i++) {
+                if (horses[i] != null) {
+                    horseLabels[i].setLocation(centerX - (lead - horses[i].getDistanceTravelled()) * 10, 160);
+                    horseLabels[i].setIcon(horses[i].getNextAnimationFrame());
+                }
+            }
             trackPanel.repaint();
             
             //figures out winner
-            if (raceWonBy(lane1Horse)) {
-                winningHorse = lane1Horse;
-                finished = true;
-            } else if (raceWonBy(lane2Horse)) {
-                winningHorse = lane2Horse;
-                finished = true;
-            } else if (raceWonBy(lane3Horse)) {
-                winningHorse = lane3Horse;
-                finished = true;
+            for (int i = 0; i < horses.length; i++) {
+                if (horses[i] != null && raceWonBy(horses[i])) {
+                    winningHorse = horses[i];
+                    finished = true;
+                    break;
+                }
             }
             
             //if all horses have fallen
-            if (!finished &&
-                lane1Horse.hasFallen() &&
-                lane2Horse.hasFallen() &&
-                lane3Horse.hasFallen()) {
-                JOptionPane.showMessageDialog(trackPanel, "All horses have fallen. No winner.");
-                return;
+            for (int i = 0; i<horses.length; i++) {
+                if (horses[i] !=null && !horses[i].hasFallen()) {
+                    allFallen = false;
+                    break;
+                }
             }
 
+            if (!finished && allFallen) {
+                JOptionPane.showMessageDialog(trackPanel, "All horses have fallen, no Winner");
+                return;
+            }
             try {
                 TimeUnit.MILLISECONDS.sleep(100);
             } catch (InterruptedException e) {

@@ -35,65 +35,39 @@ public class Gui {
             ImageIcon bgIcon = new ImageIcon("background.png");
             bgIcon = new ImageIcon(bgIcon.getImage().getScaledInstance(800, 400, Image.SCALE_SMOOTH));
             JLabel backgroundLabel = new JLabel(bgIcon);
+
             backgroundLabel.setBounds(0, 0, 800, 400);
             trackPanel.add(backgroundLabel);
 
             // Horse setup
-            Horse horse1 = new Horse('A', "Horse 1", 0.9);
-            Horse horse2 = new Horse('B', "Horse 2", 0.8);
-            Horse horse3 = new Horse('C', "Horse 3", 0.75);
+            char[] symbols = {'A', 'B', 'C', 'D', 'E', 'F'};
+            Horse[] horses = new Horse[6];
+            JLabel[] horseLabels = new JLabel[6];
+            double[] confidences = {0.9, 0.85, 0.8, 0.75, 0.7, 0.65};
+            ImageIcon[][] frames = new ImageIcon[6][4];
 
-            //animation icons
-            ImageIcon[] horse1Frames = new ImageIcon[] {
-                new ImageIcon(new ImageIcon("horse1_1.png").getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH)),
-                new ImageIcon(new ImageIcon("horse1_2.png").getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH)),
-                new ImageIcon(new ImageIcon("horse1_3.png").getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH)),
-                new ImageIcon(new ImageIcon("horse1_4.png").getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH))
-            };
-            ImageIcon[] horse2Frames = new ImageIcon[] {
-                new ImageIcon(new ImageIcon("horse2_1.png").getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH)),
-                new ImageIcon(new ImageIcon("horse2_2.png").getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH)),
-                new ImageIcon(new ImageIcon("horse2_3.png").getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH)),
-                new ImageIcon(new ImageIcon("horse2_4.png").getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH))
-            };
-            ImageIcon[] horse3Frames = new ImageIcon[] {
-                new ImageIcon(new ImageIcon("horse3_1.png").getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH)),
-                new ImageIcon(new ImageIcon("horse3_2.png").getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH)),
-                new ImageIcon(new ImageIcon("horse3_3.png").getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH)),
-                new ImageIcon(new ImageIcon("horse3_4.png").getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH))
-            };
+            //set horses and animation frames
+            for (int i=0; i < 6; i++) {
+                horses[i] = new Horse(symbols[i], "Horse " + (i + 1), confidences[i]);
+                frames[i][0] = new ImageIcon(new ImageIcon("horse" + (i + 1) + "_1.png").getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH));
+                frames[i][1] = new ImageIcon(new ImageIcon("horse" + (i + 1) + "_2.png").getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH));
+                frames[i][2] = new ImageIcon(new ImageIcon("horse" + (i + 1) + "_3.png").getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH));
+                frames[i][3] = new ImageIcon(new ImageIcon("horse" + (i + 1) + "_4.png").getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH));
+                horses[i].setAnimationFrames(frames[i]);
+                horseLabels[i] = new JLabel(frames[i][0]);
+                trackPanel.add(horseLabels[i]);
+            }
 
-            //sets the animation frames
-            horse1.setAnimationFrames(horse1Frames);
-            horse2.setAnimationFrames(horse2Frames);
-            horse3.setAnimationFrames(horse3Frames);
-            JLabel horse1Label = new JLabel(horse1Frames[0]);
-            JLabel horse2Label = new JLabel(horse2Frames[0]);
-            JLabel horse3Label = new JLabel(horse3Frames[0]);
-
-            int y = 160;
-
-            horse1Label.setBounds(0, y, 160, 160);
-            horse2Label.setBounds(0, y, 160, 160);
-            horse3Label.setBounds(0, y, 160, 160);
-
-            trackPanel.add(horse1Label);
-            trackPanel.add(horse2Label);
-            trackPanel.add(horse3Label);
-
-            trackPanel.setComponentZOrder(backgroundLabel, trackPanel.getComponentCount() - 1);
+            trackPanel.setComponentZOrder(backgroundLabel, trackPanel.getComponentCount() -1);
             trackPanel.repaint();
-            
 
-            
-            Race race = new Race(50, trackPanel, horse1Label, horse2Label, horse3Label);
-            race.addHorse(horse1, 1);
-            race.addHorse(horse2, 2);
-            race.addHorse(horse3, 3);
-
+            Race race = new Race(80, trackPanel, horseLabels);
+            for (int i=0; i < 6; i++) {
+                race.addHorse(horses[i], i);
+            }
             new Thread(race::startRace).start();
         });
-    }
+    }   
 
     public static void main(String[] args) {
         new Gui();
