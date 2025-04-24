@@ -55,6 +55,7 @@ public class Gui {
                 frames[i][3] = new ImageIcon(new ImageIcon("horse" + (i + 1) + "_4.png").getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH));
                 horses[i].setAnimationFrames(frames[i]);
                 horseLabels[i] = new JLabel(frames[i][0]);
+                horseLabels[i].setBounds(0,160,120,120);
                 trackPanel.add(horseLabels[i]);
             }
 
