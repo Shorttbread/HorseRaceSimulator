@@ -28,7 +28,7 @@ public class Gui {
         frame.add(trackPanel);
         frame.setVisible(true);
 
-        
+
         startButton = new JButton("start Race");
         startButton.setSize(200, 30);
         startButton.setLocation(500, 425);
@@ -37,6 +37,15 @@ public class Gui {
 
         startButton.addActionListener(e -> {
         System.out.println("started race");
+
+        ImageIcon bgIcon = new ImageIcon("background.png");
+
+        bgIcon = new ImageIcon(bgIcon.getImage().getScaledInstance(800, 400, Image.SCALE_SMOOTH));
+        
+        JLabel backgroundLabel = new JLabel(bgIcon);
+        backgroundLabel.setBounds(0, 0, 800, 400);
+
+        trackPanel.add(backgroundLabel);
 
         ImageIcon horse1Icon = new ImageIcon("horse1.png");
         ImageIcon horse2Icon = new ImageIcon("horse2.png");
