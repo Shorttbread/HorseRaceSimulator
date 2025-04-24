@@ -1,7 +1,7 @@
 
 /**
  * @author Luis Oliver
- * @version Version 2
+ * @version Version 3
  */
 public class Horse
 {
@@ -11,6 +11,8 @@ public class Horse
     private int distanceTravelled;
     private boolean hasFallen;
     private double confidence;
+    private javax.swing.ImageIcon[] animationFrames;
+private int currentFrameIndex = 0;
 
     /**
      * Constructor for objects of class Horse
@@ -70,5 +72,15 @@ public class Horse
 
     public boolean hasFallen() {
         return this.hasFallen;
+    }
+    
+    public void setAnimationFrames(javax.swing.ImageIcon[] frames) {
+        this.animationFrames = frames;
+    }
+
+    public javax.swing.ImageIcon getNextAnimationFrame() {
+        if (animationFrames == null || animationFrames.length == 0) return null;
+        currentFrameIndex = (currentFrameIndex + 1) % animationFrames.length;
+        return animationFrames[currentFrameIndex];
     }
 }
