@@ -17,6 +17,7 @@ public class Race {
     private JLabel horse2Label;
     private JLabel horse3Label;
 
+    //constructor
     public Race(int distance, JPanel trackPanel, JLabel horse1Label, JLabel horse2Label, JLabel horse3Label) {
         this.raceLength = distance;
         this.trackPanel = trackPanel;
@@ -24,7 +25,7 @@ public class Race {
         this.horse2Label = horse2Label;
         this.horse3Label = horse3Label;
     }
-
+    //horse lanes 
     public void addHorse(Horse theHorse, int laneNumber) {
         if (laneNumber == 1) {
             lane1Horse = theHorse;
@@ -34,7 +35,7 @@ public class Race {
             lane3Horse = theHorse;
         }
     }
-
+    //to start race
     public void startRace() {
         boolean finished = false;
 
@@ -46,6 +47,7 @@ public class Race {
 
         int centerX = (trackPanel.getWidth() - 120) / 2;
 
+        //moves horse
         while (!finished) {
             moveHorse(lane1Horse);
             moveHorse(lane2Horse);
@@ -54,17 +56,19 @@ public class Race {
                 lane1Horse.getDistanceTravelled(),
                 Math.max(lane2Horse.getDistanceTravelled(), lane3Horse.getDistanceTravelled())
             );
+            //sets the location of each horse to the same starting position
+            horse1Label.setLocation(centerX - (lead - lane1Horse.getDistanceTravelled()) * 10, 125);
+            horse2Label.setLocation(centerX - (lead - lane2Horse.getDistanceTravelled()) * 10, 125);
+            horse3Label.setLocation(centerX - (lead - lane3Horse.getDistanceTravelled()) * 10, 125);
 
-            horse1Label.setLocation(centerX - (lead - lane1Horse.getDistanceTravelled()) * 10, 150);
-            horse2Label.setLocation(centerX - (lead - lane2Horse.getDistanceTravelled()) * 10, 150);
-            horse3Label.setLocation(centerX - (lead - lane3Horse.getDistanceTravelled()) * 10, 150);
-
+            //added to use the animation inside horse.java
             horse1Label.setIcon(lane1Horse.getNextAnimationFrame());
             horse2Label.setIcon(lane2Horse.getNextAnimationFrame());
             horse3Label.setIcon(lane3Horse.getNextAnimationFrame());
 
             trackPanel.repaint();
-
+            
+            //figures out winner
             if (raceWonBy(lane1Horse)) {
                 winningHorse = lane1Horse;
                 finished = true;
@@ -75,7 +79,8 @@ public class Race {
                 winningHorse = lane3Horse;
                 finished = true;
             }
-
+            
+            //if all horses have fallen
             if (!finished &&
                 lane1Horse.hasFallen() &&
                 lane2Horse.hasFallen() &&

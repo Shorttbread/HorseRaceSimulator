@@ -45,22 +45,22 @@ public class Gui {
 
             //animation icons
             ImageIcon[] horse1Frames = new ImageIcon[] {
-                new ImageIcon("horse1_1.png"),
-                new ImageIcon("horse1_2.png"),
-                new ImageIcon("horse1_3.png"),
-                new ImageIcon("horse1_4.png")
+                new ImageIcon(new ImageIcon("horse1_1.png").getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH)),
+                new ImageIcon(new ImageIcon("horse1_2.png").getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH)),
+                new ImageIcon(new ImageIcon("horse1_3.png").getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH)),
+                new ImageIcon(new ImageIcon("horse1_4.png").getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH))
             };
             ImageIcon[] horse2Frames = new ImageIcon[] {
-                new ImageIcon("horse2_1.png"),
-                new ImageIcon("horse2_2.png"),
-                new ImageIcon("horse2_3.png"),
-                new ImageIcon("horse2_4.png")
+                new ImageIcon(new ImageIcon("horse2_1.png").getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH)),
+                new ImageIcon(new ImageIcon("horse2_2.png").getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH)),
+                new ImageIcon(new ImageIcon("horse2_3.png").getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH)),
+                new ImageIcon(new ImageIcon("horse2_4.png").getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH))
             };
             ImageIcon[] horse3Frames = new ImageIcon[] {
-                new ImageIcon("horse3_1.png"),
-                new ImageIcon("horse3_2.png"),
-                new ImageIcon("horse3_3.png"),
-                new ImageIcon("horse3_4.png")
+                new ImageIcon(new ImageIcon("horse3_1.png").getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH)),
+                new ImageIcon(new ImageIcon("horse3_2.png").getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH)),
+                new ImageIcon(new ImageIcon("horse3_3.png").getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH)),
+                new ImageIcon(new ImageIcon("horse3_4.png").getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH))
             };
 
             //sets the animation frames
@@ -73,9 +73,9 @@ public class Gui {
 
             int y = 160;
 
-            horse1Label.setBounds(0, y, 120, 120);
-            horse2Label.setBounds(0, y, 120, 120);
-            horse3Label.setBounds(0, y, 120, 120);
+            horse1Label.setBounds(0, y, 160, 160);
+            horse2Label.setBounds(0, y, 160, 160);
+            horse3Label.setBounds(0, y, 160, 160);
 
             trackPanel.add(horse1Label);
             trackPanel.add(horse2Label);
@@ -83,6 +83,7 @@ public class Gui {
 
             trackPanel.setComponentZOrder(backgroundLabel, trackPanel.getComponentCount() - 1);
             trackPanel.repaint();
+            
 
             
             Race race = new Race(50, trackPanel, horse1Label, horse2Label, horse3Label);
