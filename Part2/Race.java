@@ -93,11 +93,12 @@ public class Race {
     }
 
     private void moveHorse(Horse horse) {
+        double basicFall = 0.1;
         if (!horse.hasFallen()) {
             if (Math.random() < horse.getConfidence()) {
                 horse.moveForward();
             }
-            if (Math.random() < (0.1 * horse.getConfidence() * horse.getConfidence())) {
+            if (Math.random() < (basicFall * (1 - horse.getConfidence()))) {
                 horse.fall();
             }
         }
