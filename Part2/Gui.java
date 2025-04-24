@@ -5,11 +5,15 @@ public class Gui {
     private JFrame frame;
     private JPanel trackPanel;
     private JButton startButton;
+    private JButton extraButton1;
+    private JButton extraButton2;
+    private JButton extraButton3;
+    private JButton extraButton4;
 
     public Gui() {
         frame = new JFrame("Horse Race");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1200, 500);
+        frame.setSize(1200, 490);
         frame.setLayout(null);
         frame.setResizable(false);
         frame.setVisible(true);
@@ -24,9 +28,31 @@ public class Gui {
 
         // Start Button
         startButton = new JButton("Start Race");
-        startButton.setSize(200, 30);
-        startButton.setLocation(500, 425);
+        startButton.setSize(250, 50);
+        startButton.setLocation(50, 350);
         frame.add(startButton);
+
+        //extra buttons
+        extraButton1 = new JButton("extra button 1");
+        extraButton1.setSize(250, 50);
+        extraButton1.setLocation(50, 50);
+        frame.add(extraButton1);
+
+        extraButton2 = new JButton("extra button 2");
+        extraButton2.setSize(250, 50);
+        extraButton2.setLocation(50, 125);
+        frame.add(extraButton2);
+
+        extraButton3 = new JButton("extra button 3");
+        extraButton3.setSize(250, 50);
+        extraButton3.setLocation(50, 200);
+        frame.add(extraButton3);
+
+        extraButton4 = new JButton("extra button 4");
+        extraButton4.setSize(250, 50);
+        extraButton4.setLocation(50, 275);
+        frame.add(extraButton4);
+
 
         startButton.addActionListener(e -> {
             System.out.println("started race");
