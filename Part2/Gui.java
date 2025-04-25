@@ -54,12 +54,20 @@ public class Gui {
         frame.add(extraButton4);
 
         trackSettingsButton.addActionListener(e -> {
+            //track frame
             JFrame settingsFrame = new JFrame("Track Settings");
-            settingsFrame.setSize(600, 600);  
+            settingsFrame.setSize(550, 600);
             settingsFrame.setLocationRelativeTo(frame);
             settingsFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            settingsFrame.setResizable(false);
             settingsFrame.setLayout(null);
             settingsFrame.setVisible(true);
+        
+            //track panel
+            JPanel bottomPanel = new JPanel();
+            bottomPanel.setBackground(Color.LIGHT_GRAY);
+            bottomPanel.setBounds(63, 325, 400, 200); 
+            settingsFrame.add(bottomPanel);
         });
 
 
