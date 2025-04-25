@@ -10,6 +10,9 @@ public class Gui {
     private JButton extraButton3;
     private JButton extraButton4;
     private String background = "grass";
+    private int selectedLaneCount = 6;
+    private int selectedTrackLength = 80;
+
     public Gui() {
         frame = new JFrame("Horse Race");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -65,21 +68,22 @@ public class Gui {
         
             //track panel
             JLabel bottomLabel = new JLabel();
-            bottomLabel.setBounds(63, 125, 400, 200);
+            bottomLabel.setBounds(63, 150, 400, 200);
             bottomLabel.setOpaque(true);
             settingsFrame.add(bottomLabel);
 
             //"pick your track"
             JLabel trackLabel = new JLabel("Pick your track:");
-            trackLabel.setBounds(225, 20, 200, 25);
+            trackLabel.setBounds(225, 70, 200, 25);
             settingsFrame.add(trackLabel);
         
             // ComboBox with different tracks
             String[] trackOptions = {"Grass", "Snowy", "Desert", "Volcanic"};
             JComboBox<String> trackComboBox = new JComboBox<>(trackOptions);
-            trackComboBox.setBounds(175, 50, 200, 25);
+            trackComboBox.setBounds(175, 100, 200, 25);
             settingsFrame.add(trackComboBox);
 
+            //shows preview image
             trackComboBox.addActionListener(event -> {
                 String selected = (String) trackComboBox.getSelectedItem();
                 if (selected != null) {
@@ -90,6 +94,29 @@ public class Gui {
 
                 }
             });
+
+            
+            JLabel laneLabel = new JLabel("Number of lanes:");
+            laneLabel.setBounds(100, 20, 150, 25);
+            settingsFrame.add(laneLabel);
+
+            //for lane count
+            JSpinner laneSpinner = new JSpinner(new SpinnerNumberModel(selectedLaneCount, 1, 6, 1));
+            laneSpinner.setBounds(100, 50, 60 ,25);
+            settingsFrame.add(laneSpinner);
+            
+            JLabel lengthLabel = new JLabel("Track Length:");
+            lengthLabel.setBounds(380, 20, 100, 25);
+            settingsFrame.add(lengthLabel);
+
+            //for track length
+            JSpinner lengthSpinner = new JSpinner(new SpinnerNumberModel(selectedTrackLength, 50, 300, 10));
+            lengthSpinner.setBounds(380, 50, 60, 25);
+            settingsFrame.add(lengthSpinner);
+
+            //changes value
+            laneSpinner.addChangeListener(e2 -> selectedLaneCount = (Integer) laneSpinner.getValue());
+            lengthSpinner.addChangeListener(e2 -> selectedTrackLength = (Integer) lengthSpinner.getValue());
         });
 
 
@@ -112,7 +139,7 @@ public class Gui {
             ImageIcon[][] frames = new ImageIcon[6][4];
 
             //set horses and animation frames
-            for (int i=0; i < 6; i++) {
+            for (int i=0; i < selectedLaneCount; i++) {
                 horses[i] = new Horse(symbols[i], "Horse " + (i + 1), confidences[i]);
                 frames[i][0] = new ImageIcon(new ImageIcon("horse" + (i + 1) + "_1.png").getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH));
                 frames[i][1] = new ImageIcon(new ImageIcon("horse" + (i + 1) + "_2.png").getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH));
@@ -127,8 +154,8 @@ public class Gui {
             trackPanel.setComponentZOrder(backgroundLabel, trackPanel.getComponentCount() -1);
             trackPanel.repaint();
 
-            Race race = new Race(80, trackPanel, horseLabels);
-            for (int i=0; i < 6; i++) {
+            Race race = new Race(selectedTrackLength, trackPanel, horseLabels);
+            for (int i=0; i < selectedLaneCount; i++) {
                 race.addHorse(horses[i], i);
             }
             new Thread(race::startRace).start();
