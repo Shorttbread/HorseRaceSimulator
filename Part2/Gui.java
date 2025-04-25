@@ -12,6 +12,8 @@ public class Gui {
     private String background = "grass";
     private int selectedLaneCount = 6;
     private int selectedTrackLength = 80;
+    private String trackCondition = "dry";
+    private JLabel weatherDisplayLabel;
 
     public Gui() {
         frame = new JFrame("Horse Race");
@@ -74,7 +76,7 @@ public class Gui {
 
             //"pick your track"
             JLabel trackLabel = new JLabel("Pick your track:");
-            trackLabel.setBounds(225, 70, 200, 25);
+            trackLabel.setBounds(225, 80, 200, 25);
             settingsFrame.add(trackLabel);
         
             // ComboBox with different tracks
@@ -97,31 +99,55 @@ public class Gui {
 
             
             JLabel laneLabel = new JLabel("Number of lanes:");
-            laneLabel.setBounds(100, 20, 150, 25);
+            laneLabel.setBounds(60, 20, 150, 25);
             settingsFrame.add(laneLabel);
 
             //for lane count
             JSpinner laneSpinner = new JSpinner(new SpinnerNumberModel(selectedLaneCount, 1, 6, 1));
-            laneSpinner.setBounds(100, 50, 60 ,25);
+            laneSpinner.setBounds(60, 50, 60 ,25);
             settingsFrame.add(laneSpinner);
             
             JLabel lengthLabel = new JLabel("Track Length:");
-            lengthLabel.setBounds(380, 20, 100, 25);
+            lengthLabel.setBounds(420, 20, 100, 25);
             settingsFrame.add(lengthLabel);
 
             //for track length
             JSpinner lengthSpinner = new JSpinner(new SpinnerNumberModel(selectedTrackLength, 50, 300, 10));
-            lengthSpinner.setBounds(380, 50, 60, 25);
+            lengthSpinner.setBounds(420, 50, 60, 25);
             settingsFrame.add(lengthSpinner);
 
             //changes value
             laneSpinner.addChangeListener(e2 -> selectedLaneCount = (Integer) laneSpinner.getValue());
             lengthSpinner.addChangeListener(e2 -> selectedTrackLength = (Integer) lengthSpinner.getValue());
+
+            // Track condition
+            JLabel weatherLabel = new JLabel("Pick weather:");
+            weatherLabel.setBounds(225, 20, 200, 25);
+            settingsFrame.add(weatherLabel);
+
+            String[] weatherOptions = {"Dry", "Muddy", "Icy"};
+            JComboBox<String> weatherComboBox = new JComboBox<>(weatherOptions);
+            weatherComboBox.setBounds(175, 50, 200, 25);
+            settingsFrame.add(weatherComboBox);
+
+            // Weather display label below track panel
+            weatherDisplayLabel = new JLabel("Track Condition: Dry");
+            weatherDisplayLabel.setBounds(350, 430, 400, 25); // adjust as needed
+            frame.add(weatherDisplayLabel);
+
+
+            weatherComboBox.addActionListener(event -> {
+                String selected = (String) weatherComboBox.getSelectedItem();
+                if (selected != null) {
+                    trackCondition = selected.toLowerCase();
+                    weatherDisplayLabel.setText("Track Condition: " + selected);
+                }
+            });
         });
+        
 
 
         startButton.addActionListener(e -> {
-            System.out.println("started race");
 
             //background image
             ImageIcon bgIcon = new ImageIcon(background + ".png");
