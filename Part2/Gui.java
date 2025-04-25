@@ -56,7 +56,7 @@ public class Gui {
         trackSettingsButton.addActionListener(e -> {
             //track frame
             JFrame settingsFrame = new JFrame("Track Settings");
-            settingsFrame.setSize(550, 600);
+            settingsFrame.setSize(550, 400);
             settingsFrame.setLocationRelativeTo(frame);
             settingsFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             settingsFrame.setResizable(false);
@@ -66,8 +66,19 @@ public class Gui {
             //track panel
             JPanel bottomPanel = new JPanel();
             bottomPanel.setBackground(Color.LIGHT_GRAY);
-            bottomPanel.setBounds(63, 325, 400, 200); 
+            bottomPanel.setBounds(63, 125, 400, 200); 
             settingsFrame.add(bottomPanel);
+
+            JLabel trackLabel = new JLabel("Pick your track:");
+
+            trackLabel.setBounds(225, 20, 200, 25);
+            settingsFrame.add(trackLabel);
+        
+            // ComboBox with track options
+            String[] trackOptions = {"Grass", "Snowy", "Desert", "Volcanic"};
+            JComboBox<String> trackComboBox = new JComboBox<>(trackOptions);
+            trackComboBox.setBounds(175, 50, 200, 25);
+            settingsFrame.add(trackComboBox);
         });
 
 
