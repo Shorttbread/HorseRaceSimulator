@@ -64,10 +64,10 @@ public class Gui {
             settingsFrame.setVisible(true);
         
             //track panel
-            JPanel bottomPanel = new JPanel();
-            bottomPanel.setBackground(Color.LIGHT_GRAY);
-            bottomPanel.setBounds(63, 125, 400, 200); 
-            settingsFrame.add(bottomPanel);
+            JLabel bottomLabel = new JLabel();
+            bottomLabel.setBounds(63, 125, 400, 200);
+            bottomLabel.setOpaque(true);
+            settingsFrame.add(bottomLabel);
 
             //"pick your track"
             JLabel trackLabel = new JLabel("Pick your track:");
@@ -83,7 +83,11 @@ public class Gui {
             trackComboBox.addActionListener(event -> {
                 String selected = (String) trackComboBox.getSelectedItem();
                 if (selected != null) {
-                    background = selected.toLowerCase();
+                    background = selected.toLowerCase(); // combobox changing background to selected
+
+                    ImageIcon tsIcon = new ImageIcon(new ImageIcon(background + ".png").getImage().getScaledInstance(400, 200, Image.SCALE_SMOOTH)); //preview showing
+                    bottomLabel.setIcon(tsIcon);
+
                 }
             });
         });
