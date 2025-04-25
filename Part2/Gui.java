@@ -5,7 +5,7 @@ public class Gui {
     private JFrame frame;
     private JPanel trackPanel;
     private JButton startButton;
-    private JButton extraButton1;
+    private JButton trackSettingsButton;
     private JButton extraButton2;
     private JButton extraButton3;
     private JButton extraButton4;
@@ -33,10 +33,10 @@ public class Gui {
         frame.add(startButton);
 
         //extra buttons
-        extraButton1 = new JButton("extra button 1");
-        extraButton1.setSize(250, 50);
-        extraButton1.setLocation(50, 50);
-        frame.add(extraButton1);
+        trackSettingsButton = new JButton("Track settings");
+        trackSettingsButton.setSize(250, 50);
+        trackSettingsButton.setLocation(50, 50);
+        frame.add(trackSettingsButton);
 
         extraButton2 = new JButton("extra button 2");
         extraButton2.setSize(250, 50);
@@ -52,6 +52,15 @@ public class Gui {
         extraButton4.setSize(250, 50);
         extraButton4.setLocation(50, 275);
         frame.add(extraButton4);
+
+        trackSettingsButton.addActionListener(e -> {
+            JFrame settingsFrame = new JFrame("Track Settings");
+            settingsFrame.setSize(600, 600);  
+            settingsFrame.setLocationRelativeTo(frame);
+            settingsFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            settingsFrame.setLayout(null);
+            settingsFrame.setVisible(true);
+        });
 
 
         startButton.addActionListener(e -> {
