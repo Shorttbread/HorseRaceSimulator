@@ -6,7 +6,7 @@ public class Gui {
     private JPanel trackPanel;
     private JButton startButton;
     private JButton trackSettingsButton;
-    private JButton extraButton2;
+    private JButton horseSelection;
     private JButton extraButton3;
     private JButton extraButton4;
     private String background = "grass";
@@ -43,10 +43,10 @@ public class Gui {
         trackSettingsButton.setLocation(50, 50);
         frame.add(trackSettingsButton);
 
-        extraButton2 = new JButton("extra button 2");
-        extraButton2.setSize(250, 50);
-        extraButton2.setLocation(50, 125);
-        frame.add(extraButton2);
+        horseSelection = new JButton("Horse Selection");
+        horseSelection.setSize(250, 50);
+        horseSelection.setLocation(50, 125);
+        frame.add(horseSelection);
 
         extraButton3 = new JButton("extra button 3");
         extraButton3.setSize(250, 50);
@@ -144,8 +144,6 @@ public class Gui {
                 }
             });
         });
-        
-
 
         startButton.addActionListener(e -> {
 
