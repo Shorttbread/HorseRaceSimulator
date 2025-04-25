@@ -9,7 +9,7 @@ public class Gui {
     private JButton extraButton2;
     private JButton extraButton3;
     private JButton extraButton4;
-
+    private String background = "grass";
     public Gui() {
         frame = new JFrame("Horse Race");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -69,16 +69,23 @@ public class Gui {
             bottomPanel.setBounds(63, 125, 400, 200); 
             settingsFrame.add(bottomPanel);
 
+            //"pick your track"
             JLabel trackLabel = new JLabel("Pick your track:");
-
             trackLabel.setBounds(225, 20, 200, 25);
             settingsFrame.add(trackLabel);
         
-            // ComboBox with track options
+            // ComboBox with different tracks
             String[] trackOptions = {"Grass", "Snowy", "Desert", "Volcanic"};
             JComboBox<String> trackComboBox = new JComboBox<>(trackOptions);
             trackComboBox.setBounds(175, 50, 200, 25);
             settingsFrame.add(trackComboBox);
+
+            trackComboBox.addActionListener(event -> {
+                String selected = (String) trackComboBox.getSelectedItem();
+                if (selected != null) {
+                    background = selected.toLowerCase();
+                }
+            });
         });
 
 
@@ -86,7 +93,7 @@ public class Gui {
             System.out.println("started race");
 
             //background image
-            ImageIcon bgIcon = new ImageIcon("background.png");
+            ImageIcon bgIcon = new ImageIcon(background + ".png");
             bgIcon = new ImageIcon(bgIcon.getImage().getScaledInstance(800, 400, Image.SCALE_SMOOTH));
             JLabel backgroundLabel = new JLabel(bgIcon);
 
