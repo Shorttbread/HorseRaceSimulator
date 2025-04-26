@@ -144,6 +144,51 @@ public class Gui {
                 }
             });
         });
+        horseSelection.addActionListener(e3 -> {
+            //Jframe generated
+            JFrame horseFrame = new JFrame("Horse Selection");
+            horseFrame.setSize(550, 500); 
+            horseFrame.setLocationRelativeTo(frame);
+            horseFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            horseFrame.setResizable(false);
+            horseFrame.setLayout(null);
+            horseFrame.setVisible(true);
+        
+            //title
+            JLabel selectionLabel = new JLabel("Customise Your Horse:");
+            selectionLabel.setBounds(180, 10, 200, 25);
+            horseFrame.add(selectionLabel);
+        
+            //breed label
+            JLabel breedLabel = new JLabel("Select Breed:");
+            breedLabel.setBounds(100, 50, 150, 25);
+            horseFrame.add(breedLabel);
+        
+            // breed combobox
+            String[] breeds = {"Thoroughbred", "Arabian", "Quarter Horse", "Clydesdale"};
+            JComboBox<String> breedBox = new JComboBox<>(breeds);
+            breedBox.setBounds(250, 50, 150, 25); 
+            horseFrame.add(breedBox);
+        
+            //colour label
+            JLabel coatLabel = new JLabel("Select Coat Colour:");
+            coatLabel.setBounds(100, 100, 150, 25);
+            horseFrame.add(coatLabel);
+        
+            // colour combobox
+            String[] coats = {"Brown", "Black", "Grey", "White"};
+            JComboBox<String> coatBox = new JComboBox<>(coats);
+            coatBox.setBounds(250, 100, 150, 25);
+            horseFrame.add(coatBox);
+        
+            // preview panel generated
+
+            JPanel previewPanel = new JPanel();
+            previewPanel.setBounds(150, 160, 300, 250);
+            previewPanel.setBackground(Color.LIGHT_GRAY);
+            horseFrame.add(previewPanel);
+        });
+        
 
         startButton.addActionListener(e -> {
 
