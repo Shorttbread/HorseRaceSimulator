@@ -195,7 +195,7 @@ public class Gui {
             coatBox.addActionListener(event -> {
                 String selectedCoat = (String) coatBox.getSelectedItem();
                 int selectedHorse = horseBox.getSelectedIndex();
-                String horseImage = "horses/brown.png"; // Default
+                String horseImage = "horses/brown.png"; //the default
 
                 if (selectedCoat == null || selectedCoat.equals("Brown")) {
                     horseImage = "horses/brown.png";
@@ -247,9 +247,10 @@ public class Gui {
             for (int i = 0; i < selectedLaneCount; i++) {
                 horses[i] = new Horse(symbols[i], "Horse " + (i + 1), confidences[i]);
             
-                // Use selected coat color image OR default if none selected
+                // Use selected colour images (if none selected it will be the brown horse)
                 String imgPath = (horseImages[i] != null) ? horseImages[i] : "horse" + (i + 1) + "_1.png";
             
+                //designates the images to the horse
                 frames[i][0] = new ImageIcon(new ImageIcon(imgPath).getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH));
                 frames[i][1] = new ImageIcon(new ImageIcon(imgPath).getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH));
                 frames[i][2] = new ImageIcon(new ImageIcon(imgPath).getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH));
@@ -265,6 +266,7 @@ public class Gui {
             trackPanel.setComponentZOrder(backgroundLabel, trackPanel.getComponentCount() -1);
             trackPanel.repaint();
 
+            //adds the horse
             Race race = new Race(selectedTrackLength, trackPanel, horseLabels);
             for (int i=0; i < selectedLaneCount; i++) {
                 race.addHorse(horses[i], i);
