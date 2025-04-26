@@ -197,7 +197,7 @@ public class Gui {
                 int selectedHorse = horseBox.getSelectedIndex();
                 String horseImage = "horses/brown.png"; //the default
 
-                if (selectedCoat == null || selectedCoat.equals("Brown")) {
+                if (selectedCoat == null || selectedCoat.equals("brown")) {
                     horseImage = "horses/brown.png";
                 } else if (selectedCoat.equals("Black")) {
                     horseImage = "horses/black.png";
@@ -223,6 +223,7 @@ public class Gui {
                 String selectedBreed = (String) breedBox.getSelectedItem();
                 int selectedHorse = horseBox.getSelectedIndex();
                 horseBreeds[selectedHorse] = selectedBreed;
+                
             });
         });
 
@@ -248,7 +249,12 @@ public class Gui {
                 horses[i] = new Horse(symbols[i], "Horse " + (i + 1), confidences[i]);
             
                 // Use selected colour images (if none selected it will be the brown horse)
-                String imagePathForAni = (horseImages[i] != null) ? horseImages[i].replace(".png", "") : "horse" + (i + 1);
+                String imagePathForAni;
+                if (horseImages[i] == null) {
+                imagePathForAni = "horses/brown";
+                    } else {
+                imagePathForAni = horseImages[i].replace(".png", "");
+                }
             
                 //designates the images to the horse
                 frames[i][0] = new ImageIcon(new ImageIcon(imagePathForAni + "_1.png").getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH));
