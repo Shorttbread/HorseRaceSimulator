@@ -132,7 +132,7 @@ public class Gui {
 
             // Weather display label below track panel
             weatherDisplayLabel = new JLabel("Track Condition: Dry");
-            weatherDisplayLabel.setBounds(350, 430, 400, 25); // adjust as needed
+            weatherDisplayLabel.setBounds(350, 430, 400, 25);
             frame.add(weatherDisplayLabel);
 
 
@@ -145,50 +145,70 @@ public class Gui {
             });
         });
         horseSelection.addActionListener(e3 -> {
-            //Jframe generated
+            //main frame
             JFrame horseFrame = new JFrame("Horse Selection");
-            horseFrame.setSize(550, 500); 
+            horseFrame.setSize(550, 500);
             horseFrame.setLocationRelativeTo(frame);
             horseFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             horseFrame.setResizable(false);
             horseFrame.setLayout(null);
             horseFrame.setVisible(true);
         
-            //title
             JLabel selectionLabel = new JLabel("Customise Your Horse:");
             selectionLabel.setBounds(180, 10, 200, 25);
             horseFrame.add(selectionLabel);
         
-            //breed label
             JLabel breedLabel = new JLabel("Select Breed:");
             breedLabel.setBounds(100, 50, 150, 25);
             horseFrame.add(breedLabel);
         
-            // breed combobox
+            //breed selection
             String[] breeds = {"Thoroughbred", "Arabian", "Quarter Horse", "Clydesdale"};
             JComboBox<String> breedBox = new JComboBox<>(breeds);
-            breedBox.setBounds(250, 50, 150, 25); 
+            breedBox.setBounds(250, 50, 150, 25);
             horseFrame.add(breedBox);
         
-            //colour label
             JLabel coatLabel = new JLabel("Select Coat Colour:");
             coatLabel.setBounds(100, 100, 150, 25);
             horseFrame.add(coatLabel);
         
-            // colour combobox
-            String[] coats = {"Brown", "Black", "Grey", "White"};
+            //coat colours
+            String[] coats = {"Brown", "Black", "White"};
             JComboBox<String> coatBox = new JComboBox<>(coats);
             coatBox.setBounds(250, 100, 150, 25);
             horseFrame.add(coatBox);
         
-            // preview panel generated
-
+            //panel to preview ur choice
             JPanel previewPanel = new JPanel();
             previewPanel.setBounds(150, 160, 300, 250);
             previewPanel.setBackground(Color.LIGHT_GRAY);
             horseFrame.add(previewPanel);
-        });
         
+            //apply display to preview panel
+            coatBox.addActionListener(event -> {
+                String selectedCoat = (String) coatBox.getSelectedItem();
+                String horseImage = "horses/brown.png";
+        
+                if (selectedCoat == null || selectedCoat.equals("Brown")) {
+                    horseImage = "horses/brown.png";
+                } else if (selectedCoat.equals("Black")) {
+                    horseImage = "horses/black.png";
+                } else if (selectedCoat.equals("White")) {
+                    horseImage = "horses/white.png";
+                }
+        
+                ImageIcon horsePreview = new ImageIcon(
+                    new ImageIcon(horseImage).getImage().getScaledInstance(previewPanel.getWidth(), previewPanel.getHeight(), Image.SCALE_SMOOTH)
+                );
+        
+                previewPanel.removeAll();
+                JLabel horseLabel = new JLabel(horsePreview);
+                horseLabel.setBounds(0, 0, previewPanel.getWidth(), previewPanel.getHeight());
+                previewPanel.add(horseLabel);
+                previewPanel.revalidate();
+                previewPanel.repaint();
+            });
+        });
 
         startButton.addActionListener(e -> {
 
