@@ -14,6 +14,9 @@ public class Gui {
     private int selectedTrackLength = 80;
     private String trackCondition = "dry";
     private JLabel weatherDisplayLabel;
+    private String[] horseBreeds = new String[6];
+    private String[] horseCoats = new String[6];
+    private String[] horseImages = new String[6];
 
     public Gui() {
         frame = new JFrame("Horse Race");
@@ -145,7 +148,6 @@ public class Gui {
             });
         });
         horseSelection.addActionListener(e3 -> {
-            //main frame
             JFrame horseFrame = new JFrame("Horse Selection");
             horseFrame.setSize(550, 500);
             horseFrame.setLocationRelativeTo(frame);
@@ -154,47 +156,47 @@ public class Gui {
             horseFrame.setLayout(null);
             horseFrame.setVisible(true);
 
-            //select horse to change
-            JLabel horseSelectLabel = new JLabel("Select Horse:");
-            horseSelectLabel.setBounds(100, 10, 150, 25);
-            horseFrame.add(horseSelectLabel);
+            JLabel selectionLabel = new JLabel("Customise Your Horse:");
+            selectionLabel.setBounds(180, 10, 200, 25);
+            horseFrame.add(selectionLabel);
 
-            String[] horseNames = {"Horse 1", "Horse 2", "Horse 3", "Horse 4", "Horse 5", "Horse 6"};
-            JComboBox<String> horseBox = new JComboBox<>(horseNames);
-            horseBox.setBounds(250, 10, 150, 25);
+            JLabel horseLabel = new JLabel("Select Horse:");
+            horseLabel.setBounds(100, 50, 150, 25);
+            horseFrame.add(horseLabel);
+
+            String[] horses = {"Horse 1", "Horse 2", "Horse 3", "Horse 4", "Horse 5", "Horse 6"};
+            JComboBox<String> horseBox = new JComboBox<>(horses);
+            horseBox.setBounds(250, 50, 150, 25);
             horseFrame.add(horseBox);
-        
+
             JLabel breedLabel = new JLabel("Select Breed:");
-            breedLabel.setBounds(100, 50, 150, 25);
+            breedLabel.setBounds(100, 100, 150, 25);
             horseFrame.add(breedLabel);
-        
-            //breed selection
+
             String[] breeds = {"Thoroughbred", "Arabian", "Quarter Horse", "Clydesdale"};
             JComboBox<String> breedBox = new JComboBox<>(breeds);
-            breedBox.setBounds(250, 50, 150, 25);
+            breedBox.setBounds(250, 100, 150, 25);
             horseFrame.add(breedBox);
-        
+
             JLabel coatLabel = new JLabel("Select Coat Colour:");
-            coatLabel.setBounds(100, 100, 150, 25);
+            coatLabel.setBounds(100, 150, 150, 25);
             horseFrame.add(coatLabel);
-        
-            //coat colours
+
             String[] coats = {"Brown", "Black", "White"};
             JComboBox<String> coatBox = new JComboBox<>(coats);
-            coatBox.setBounds(250, 100, 150, 25);
+            coatBox.setBounds(250, 150, 150, 25);
             horseFrame.add(coatBox);
-        
-            //panel to preview ur choice
+
             JPanel previewPanel = new JPanel();
-            previewPanel.setBounds(150, 160, 300, 250);
+            previewPanel.setBounds(150, 210, 250, 230);
             previewPanel.setBackground(Color.LIGHT_GRAY);
             horseFrame.add(previewPanel);
-        
-            //apply display to preview panel
+
             coatBox.addActionListener(event -> {
                 String selectedCoat = (String) coatBox.getSelectedItem();
-                String horseImage = "horses/brown.png";
-        
+                int selectedHorse = horseBox.getSelectedIndex();
+                String horseImage = "horses/brown.png"; // Default
+
                 if (selectedCoat == null || selectedCoat.equals("Brown")) {
                     horseImage = "horses/brown.png";
                 } else if (selectedCoat.equals("Black")) {
@@ -202,17 +204,25 @@ public class Gui {
                 } else if (selectedCoat.equals("White")) {
                     horseImage = "horses/white.png";
                 }
-        
+
+                horseCoats[selectedHorse] = selectedCoat;
+                horseImages[selectedHorse] = horseImage;
+
+                // Preview
                 ImageIcon horsePreview = new ImageIcon(
                     new ImageIcon(horseImage).getImage().getScaledInstance(previewPanel.getWidth(), previewPanel.getHeight(), Image.SCALE_SMOOTH)
                 );
-        
                 previewPanel.removeAll();
-                JLabel horseLabel = new JLabel(horsePreview);
-                horseLabel.setBounds(0, 0, previewPanel.getWidth(), previewPanel.getHeight());
-                previewPanel.add(horseLabel);
+                JLabel previewHorseLabel = new JLabel(horsePreview);
+                previewHorseLabel.setBounds(0, 0, previewPanel.getWidth(), previewPanel.getHeight());
+                previewPanel.add(previewHorseLabel);
                 previewPanel.revalidate();
                 previewPanel.repaint();
+            });
+            breedBox.addActionListener(event -> {
+                String selectedBreed = (String) breedBox.getSelectedItem();
+                int selectedHorse = horseBox.getSelectedIndex();
+                horseBreeds[selectedHorse] = selectedBreed;
             });
         });
 
@@ -234,15 +244,21 @@ public class Gui {
             ImageIcon[][] frames = new ImageIcon[6][4];
 
             //set horses and animation frames
-            for (int i=0; i < selectedLaneCount; i++) {
+            for (int i = 0; i < selectedLaneCount; i++) {
                 horses[i] = new Horse(symbols[i], "Horse " + (i + 1), confidences[i]);
-                frames[i][0] = new ImageIcon(new ImageIcon("horse" + (i + 1) + "_1.png").getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH));
-                frames[i][1] = new ImageIcon(new ImageIcon("horse" + (i + 1) + "_2.png").getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH));
-                frames[i][2] = new ImageIcon(new ImageIcon("horse" + (i + 1) + "_3.png").getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH));
-                frames[i][3] = new ImageIcon(new ImageIcon("horse" + (i + 1) + "_4.png").getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH));
+            
+                // Use selected coat color image OR default if none selected
+                String imgPath = (horseImages[i] != null) ? horseImages[i] : "horse" + (i + 1) + "_1.png";
+            
+                frames[i][0] = new ImageIcon(new ImageIcon(imgPath).getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH));
+                frames[i][1] = new ImageIcon(new ImageIcon(imgPath).getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH));
+                frames[i][2] = new ImageIcon(new ImageIcon(imgPath).getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH));
+                frames[i][3] = new ImageIcon(new ImageIcon(imgPath).getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH));
+            
                 horses[i].setAnimationFrames(frames[i]);
+            
                 horseLabels[i] = new JLabel(frames[i][0]);
-                horseLabels[i].setBounds(0,160,120,120);
+                horseLabels[i].setBounds(0, 160, 120, 120);
                 trackPanel.add(horseLabels[i]);
             }
 
