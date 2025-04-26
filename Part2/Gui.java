@@ -153,10 +153,16 @@ public class Gui {
             horseFrame.setResizable(false);
             horseFrame.setLayout(null);
             horseFrame.setVisible(true);
-        
-            JLabel selectionLabel = new JLabel("Customise Your Horse:");
-            selectionLabel.setBounds(180, 10, 200, 25);
-            horseFrame.add(selectionLabel);
+
+            //select horse to change
+            JLabel horseSelectLabel = new JLabel("Select Horse:");
+            horseSelectLabel.setBounds(100, 10, 150, 25);
+            horseFrame.add(horseSelectLabel);
+
+            String[] horseNames = {"Horse 1", "Horse 2", "Horse 3", "Horse 4", "Horse 5", "Horse 6"};
+            JComboBox<String> horseBox = new JComboBox<>(horseNames);
+            horseBox.setBounds(250, 10, 150, 25);
+            horseFrame.add(horseBox);
         
             JLabel breedLabel = new JLabel("Select Breed:");
             breedLabel.setBounds(100, 50, 150, 25);
