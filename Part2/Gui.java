@@ -248,13 +248,13 @@ public class Gui {
                 horses[i] = new Horse(symbols[i], "Horse " + (i + 1), confidences[i]);
             
                 // Use selected colour images (if none selected it will be the brown horse)
-                String imgPath = (horseImages[i] != null) ? horseImages[i] : "horse" + (i + 1) + "_1.png";
+                String imagePathForAni = (horseImages[i] != null) ? horseImages[i].replace(".png", "") : "horse" + (i + 1);
             
                 //designates the images to the horse
-                frames[i][0] = new ImageIcon(new ImageIcon(imgPath).getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH));
-                frames[i][1] = new ImageIcon(new ImageIcon(imgPath).getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH));
-                frames[i][2] = new ImageIcon(new ImageIcon(imgPath).getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH));
-                frames[i][3] = new ImageIcon(new ImageIcon(imgPath).getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH));
+                frames[i][0] = new ImageIcon(new ImageIcon(imagePathForAni + "_1.png").getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH));
+                frames[i][1] = new ImageIcon(new ImageIcon(imagePathForAni + "_2.png").getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH));
+                frames[i][2] = new ImageIcon(new ImageIcon(imagePathForAni + "_3.png").getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH));
+                frames[i][3] = new ImageIcon(new ImageIcon(imagePathForAni + "_4.png").getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH));
             
                 horses[i].setAnimationFrames(frames[i]);
             
