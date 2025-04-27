@@ -7,8 +7,6 @@ public class Gui {
     private JButton startButton;
     private JButton trackSettingsButton;
     private JButton horseSelection;
-    private JButton statisticsButton;
-    private JButton extraButton4;
     private static final int MIN_LANES = 1;
     private static final int MAX_LANES = 6;
     private String background = "grass";
@@ -16,10 +14,11 @@ public class Gui {
     private int selectedTrackLength = 80;
     private String trackCondition = "dry";
     private JLabel weatherDisplayLabel;
+    private Horse[] horses = new Horse[6];
     private String[] horseBreeds = new String[6];
     private String[] horseCoats = new String[6];
     private String[] horseImages = new String[6];
-
+ 
     public Gui() {
         frame = new JFrame("Horse Race");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -28,7 +27,6 @@ public class Gui {
         frame.setResizable(false);
         frame.setVisible(true);
 
-        // Track Panel
         track = new JPanel();
         track.setBackground(new Color(20, 20, 20));
         track.setSize(800, 400);
@@ -36,7 +34,6 @@ public class Gui {
         track.setLayout(null);
         frame.add(track);
 
-        // Start Button
         startButton = new JButton("Start Race");
         startButton.setSize(250, 50);
         startButton.setLocation(50, 350);
@@ -49,20 +46,8 @@ public class Gui {
 
         horseSelection = new JButton("Horse Selection");
         horseSelection.setSize(250, 50);
-        horseSelection.setLocation(50, 125);
+        horseSelection.setLocation(50, 200);
         frame.add(horseSelection);
-
-        statisticsButton = new JButton("Statistics and Analytics");
-        statisticsButton.setSize(250, 50);
-        statisticsButton.setLocation(50, 200);
-        frame.add(statisticsButton);
-
-        extraButton4 = new JButton("extra button 4");
-        extraButton4.setSize(250, 50);
-        extraButton4.setLocation(50, 275);
-        frame.add(extraButton4);
-
-
 
         trackSettingsButton.addActionListener(e -> {
             //track frame
@@ -238,7 +223,6 @@ public class Gui {
 
             // Horse setup
             char[] symbols = {'A', 'B', 'C', 'D', 'E', 'F'};
-            Horse[] horses = new Horse[6];
             JLabel[] horseLabels = new JLabel[6];
             ImageIcon[][] frames = new ImageIcon[6][4];
             double[] confidences = new double[6];

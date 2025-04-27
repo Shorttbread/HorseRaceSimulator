@@ -13,8 +13,6 @@ public class Horse
     private double confidence;
     private javax.swing.ImageIcon[] animationFrames;
     private int currentFrameIndex = 0;
-    private int racesRan;
-    private int racesWon;
 
     /**
      * Constructor for objects of class Horse
@@ -78,7 +76,7 @@ public class Horse
     public boolean hasFallen() {
         return this.hasFallen;
     }
-    //added to allow for animation of horse running to be
+    //added to allow for animation of horses
 
     public void setAnimationFrames(javax.swing.ImageIcon[] frames) {
         this.animationFrames = frames;
@@ -89,19 +87,5 @@ public class Horse
         currentFrameIndex = (currentFrameIndex + 1) % animationFrames.length;
         return animationFrames[currentFrameIndex];
     }
-    public void addRacesRan() {
-        racesRan++;
-    }
-    
-    public void addRacesWon() {
-        racesWon++;
-    }
-    
-    public int getRacesRan() {
-        return racesRan;
-    }
-    
-    public int getRacesWon() {
-        return racesWon;
-    }
 }
+    
