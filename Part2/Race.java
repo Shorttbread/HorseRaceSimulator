@@ -40,7 +40,7 @@ public class Race {
         //moves horse
         while (!finished) {
             int lead = 0;
-            boolean allFallen = false;
+            boolean allFallen = true;
 
             for (int i=0; i < horses.length; i++) {
                 if (horses[i] != null) {
