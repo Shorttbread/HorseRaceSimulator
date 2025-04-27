@@ -241,8 +241,11 @@ public class Gui {
             char[] symbols = {'A', 'B', 'C', 'D', 'E', 'F'};
             Horse[] horses = new Horse[6];
             JLabel[] horseLabels = new JLabel[6];
-            double[] confidences = {0.9, 0.85, 0.8, 0.75, 0.7, 0.65};
             ImageIcon[][] frames = new ImageIcon[6][4];
+            double[] confidences = new double[6];
+            for (int i = 0; i < 6; i++) {
+            confidences[i] = ((Math.random() * 0.6) + 0.4); // Random between 0.4 and 1.0
+            }
 
             //set horses and animation frames
             for (int i = 0; i < selectedLaneCount; i++) {
