@@ -253,6 +253,15 @@ public class Gui {
             for (int i = 0; i < selectedLaneCount; i++) {
                 horses[i] = new Horse(symbols[i], "Horse " + (i + 1), confidences[i]);
             
+                if (trackCondition.equals("dry")) {
+                    horses[i].setConfidence(horses[i].getConfidence());
+                } else if (trackCondition.equals("Icy")) {
+                    horses[i].setConfidence(horses[i].getConfidence() - 0.2); 
+                } else if (trackCondition.equals("Wet")) {
+                    horses[i].setConfidence(horses[i].getConfidence() - 0.1); 
+                } else if (trackCondition.equals("Meteor shower!")) {
+                    horses[i].setConfidence(horses[i].getConfidence() - 0.5);
+                }
                 // Use selected colour images (if none selected it will be the brown horse)
                 String imagePathForAni;
                 if (horseImages[i] == null) {
