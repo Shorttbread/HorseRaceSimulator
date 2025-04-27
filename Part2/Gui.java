@@ -128,7 +128,7 @@ public class Gui {
             weatherLabel.setBounds(225, 20, 200, 25);
             settingsFrame.add(weatherLabel);
 
-            String[] weatherOptions = {"Dry", "Muddy", "Icy"};
+            String[] weatherOptions = {"Dry", "Icy", "Wet", "Meteor shower!"};
             JComboBox<String> weatherComboBox = new JComboBox<>(weatherOptions);
             weatherComboBox.setBounds(175, 50, 200, 25);
             settingsFrame.add(weatherComboBox);
