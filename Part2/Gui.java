@@ -6,7 +6,7 @@ public class Gui {
     private JPanel track;
     private JButton startButton;
     private JButton trackSettingsButton;
-    private JButton horseSelection;
+    private JButton horseSelectionButton;
     private static final int MIN_LANES = 1;
     private static final int MAX_LANES = 6;
     private String background = "grass";
@@ -70,9 +70,9 @@ public class Gui {
             trackComboBox.addActionListener(event -> {
                 String selected = (String) trackComboBox.getSelectedItem();
                 if (selected != null) {
-                    background = selected.toLowerCase(); // combobox changing background to selected
+                    background = selected.toLowerCase();
 
-                    ImageIcon tsIcon = new ImageIcon(new ImageIcon(background + ".png").getImage().getScaledInstance(400, 200, Image.SCALE_SMOOTH)); //preview showing
+                    ImageIcon tsIcon = new ImageIcon(new ImageIcon("Maps/" + background + ".png").getImage().getScaledInstance(400, 200, Image.SCALE_SMOOTH)); //preview showing
                     bottomLabel.setIcon(tsIcon);
 
                 }
@@ -122,12 +122,12 @@ public class Gui {
             });
         });
         
-        horseSelection = new JButton("Horse Selection");
-        horseSelection.setSize(250, 50);
-        horseSelection.setLocation(50, 200);
-        frame.add(horseSelection);
+        horseSelectionButton = new JButton("Horse Selection");
+        horseSelectionButton.setSize(250, 50);
+        horseSelectionButton.setLocation(50, 200);
+        frame.add(horseSelectionButton);
 
-        horseSelection.addActionListener(e3 -> {
+        horseSelectionButton.addActionListener(e3 -> {
             JFrame horseFrame = new JFrame("Horse Selection");
             horseFrame.setSize(550, 500);
             horseFrame.setLocationRelativeTo(frame);
@@ -218,7 +218,7 @@ public class Gui {
             track.repaint();
 
             //background image
-            ImageIcon bgIcon = new ImageIcon(background + ".png");
+            ImageIcon bgIcon = new ImageIcon("Maps/" + background + ".png");
             bgIcon = new ImageIcon(bgIcon.getImage().getScaledInstance(800, 400, Image.SCALE_SMOOTH));
             JLabel backgroundLabel = new JLabel(bgIcon);
 
