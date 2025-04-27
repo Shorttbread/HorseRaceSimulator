@@ -134,7 +134,7 @@ public class Gui {
             settingsFrame.add(weatherComboBox);
 
             // Weather display label below track panel
-            weatherDisplayLabel = new JLabel("Track Condition: Dry");
+            weatherDisplayLabel = new JLabel("Track Condition");
             weatherDisplayLabel.setBounds(350, 430, 400, 25);
             frame.add(weatherDisplayLabel);
 
@@ -244,8 +244,10 @@ public class Gui {
             ImageIcon[][] frames = new ImageIcon[6][4];
             double[] confidences = new double[6];
             for (int i = 0; i < 6; i++) {
-            confidences[i] = ((Math.random() * 0.6) + 0.4); // Random between 0.4 and 1.0
+            confidences[i] = ((Math.random() * 0.6) + 0.4);
             }
+
+            
 
             //set horses and animation frames
             for (int i = 0; i < selectedLaneCount; i++) {
