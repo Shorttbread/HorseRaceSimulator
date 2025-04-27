@@ -34,20 +34,10 @@ public class Gui {
         track.setLayout(null);
         frame.add(track);
 
-        startButton = new JButton("Start Race");
-        startButton.setSize(250, 50);
-        startButton.setLocation(50, 350);
-        frame.add(startButton);
-
         trackSettingsButton = new JButton("Track settings");
         trackSettingsButton.setSize(250, 50);
         trackSettingsButton.setLocation(50, 50);
         frame.add(trackSettingsButton);
-
-        horseSelection = new JButton("Horse Selection");
-        horseSelection.setSize(250, 50);
-        horseSelection.setLocation(50, 200);
-        frame.add(horseSelection);
 
         trackSettingsButton.addActionListener(e -> {
             //track frame
@@ -131,6 +121,12 @@ public class Gui {
                 }
             });
         });
+        
+        horseSelection = new JButton("Horse Selection");
+        horseSelection.setSize(250, 50);
+        horseSelection.setLocation(50, 200);
+        frame.add(horseSelection);
+
         horseSelection.addActionListener(e3 -> {
             JFrame horseFrame = new JFrame("Horse Selection");
             horseFrame.setSize(550, 500);
@@ -211,7 +207,15 @@ public class Gui {
             });
         });
 
+        startButton = new JButton("Start Race");
+        startButton.setSize(250, 50);
+        startButton.setLocation(50, 350);
+        frame.add(startButton);
+
         startButton.addActionListener(e -> {
+
+            track.removeAll();
+            track.repaint();
 
             //background image
             ImageIcon bgIcon = new ImageIcon(background + ".png");
@@ -226,7 +230,7 @@ public class Gui {
             JLabel[] horseLabels = new JLabel[6];
             ImageIcon[][] frames = new ImageIcon[6][4];
             double[] confidences = new double[6];
-            for (int i = 0; i < 6; i++) {
+            for (int i = 0; i < confidences.length; i++) {
             confidences[i] = ((Math.random() * 0.6) + 0.4);
             }
 

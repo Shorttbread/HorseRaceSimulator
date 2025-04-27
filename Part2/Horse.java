@@ -23,8 +23,6 @@ public class Horse
         setConfidence(horseConfidence);
         this.distanceTravelled = 0;
         this.hasFallen = false;
-        this.racesRan = 0;
-        this.racesWon = 0; 
     }
     
     //Other methods of class Horse
