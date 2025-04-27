@@ -3,12 +3,14 @@ import java.awt.*;
 
 public class Gui {
     private JFrame frame;
-    private JPanel trackPanel;
+    private JPanel track;
     private JButton startButton;
     private JButton trackSettingsButton;
     private JButton horseSelection;
-    private JButton extraButton3;
+    private JButton statisticsButton;
     private JButton extraButton4;
+    private static final int MIN_LANES = 1;
+    private static final int MAX_LANES = 6;
     private String background = "grass";
     private int selectedLaneCount = 6;
     private int selectedTrackLength = 80;
@@ -27,12 +29,12 @@ public class Gui {
         frame.setVisible(true);
 
         // Track Panel
-        trackPanel = new JPanel();
-        trackPanel.setBackground(new Color(20, 20, 20));
-        trackPanel.setSize(800, 400);
-        trackPanel.setLocation(350, 25);
-        trackPanel.setLayout(null);
-        frame.add(trackPanel);
+        track = new JPanel();
+        track.setBackground(new Color(20, 20, 20));
+        track.setSize(800, 400);
+        track.setLocation(350, 25);
+        track.setLayout(null);
+        frame.add(track);
 
         // Start Button
         startButton = new JButton("Start Race");
@@ -40,7 +42,6 @@ public class Gui {
         startButton.setLocation(50, 350);
         frame.add(startButton);
 
-        //extra buttons
         trackSettingsButton = new JButton("Track settings");
         trackSettingsButton.setSize(250, 50);
         trackSettingsButton.setLocation(50, 50);
@@ -51,15 +52,17 @@ public class Gui {
         horseSelection.setLocation(50, 125);
         frame.add(horseSelection);
 
-        extraButton3 = new JButton("extra button 3");
-        extraButton3.setSize(250, 50);
-        extraButton3.setLocation(50, 200);
-        frame.add(extraButton3);
+        statisticsButton = new JButton("Statistics and Analytics");
+        statisticsButton.setSize(250, 50);
+        statisticsButton.setLocation(50, 200);
+        frame.add(statisticsButton);
 
         extraButton4 = new JButton("extra button 4");
         extraButton4.setSize(250, 50);
         extraButton4.setLocation(50, 275);
         frame.add(extraButton4);
+
+
 
         trackSettingsButton.addActionListener(e -> {
             //track frame
@@ -106,7 +109,7 @@ public class Gui {
             settingsFrame.add(laneLabel);
 
             //for lane count
-            JSpinner laneSpinner = new JSpinner(new SpinnerNumberModel(selectedLaneCount, 1, 6, 1));
+            JSpinner laneSpinner = new JSpinner(new SpinnerNumberModel(selectedLaneCount, MIN_LANES, MAX_LANES, 1));
             laneSpinner.setBounds(60, 50, 60 ,25);
             settingsFrame.add(laneSpinner);
             
@@ -118,8 +121,6 @@ public class Gui {
             JSpinner lengthSpinner = new JSpinner(new SpinnerNumberModel(selectedTrackLength, 50, 300, 10));
             lengthSpinner.setBounds(420, 50, 60, 25);
             settingsFrame.add(lengthSpinner);
-
-            //changes value
             laneSpinner.addChangeListener(e2 -> selectedLaneCount = (Integer) laneSpinner.getValue());
             lengthSpinner.addChangeListener(e2 -> selectedTrackLength = (Integer) lengthSpinner.getValue());
 
@@ -133,12 +134,10 @@ public class Gui {
             weatherComboBox.setBounds(175, 50, 200, 25);
             settingsFrame.add(weatherComboBox);
 
-            // Weather display label below track panel
             weatherDisplayLabel = new JLabel("Track Condition");
             weatherDisplayLabel.setBounds(350, 430, 400, 25);
             frame.add(weatherDisplayLabel);
-
-
+        
             weatherComboBox.addActionListener(event -> {
                 String selected = (String) weatherComboBox.getSelectedItem();
                 if (selected != null) {
@@ -213,9 +212,9 @@ public class Gui {
                     new ImageIcon(horseImage).getImage().getScaledInstance(previewPanel.getWidth(), previewPanel.getHeight(), Image.SCALE_SMOOTH)
                 );
                 previewPanel.removeAll();
-                JLabel previewHorseLabel = new JLabel(horsePreview);
-                previewHorseLabel.setBounds(0, 0, previewPanel.getWidth(), previewPanel.getHeight());
-                previewPanel.add(previewHorseLabel);
+                JLabel previewHorse = new JLabel(horsePreview);
+                previewHorse.setBounds(0, 0, previewPanel.getWidth(), previewPanel.getHeight());
+                previewPanel.add(previewHorse);
                 previewPanel.revalidate();
                 previewPanel.repaint();
             });
@@ -235,7 +234,7 @@ public class Gui {
             JLabel backgroundLabel = new JLabel(bgIcon);
 
             backgroundLabel.setBounds(0, 0, 800, 400);
-            trackPanel.add(backgroundLabel);
+            track.add(backgroundLabel);
 
             // Horse setup
             char[] symbols = {'A', 'B', 'C', 'D', 'E', 'F'};
@@ -280,14 +279,14 @@ public class Gui {
             
                 horseLabels[i] = new JLabel(frames[i][0]);
                 horseLabels[i].setBounds(0, 160, 120, 120);
-                trackPanel.add(horseLabels[i]);
+                track.add(horseLabels[i]);
             }
 
-            trackPanel.setComponentZOrder(backgroundLabel, trackPanel.getComponentCount() -1);
-            trackPanel.repaint();
+            track.setComponentZOrder(backgroundLabel, track.getComponentCount() -1);
+            track.repaint();
 
             //adds the horse
-            Race race = new Race(selectedTrackLength, trackPanel, horseLabels);
+            Race race = new Race(selectedTrackLength, track, horseLabels);
             for (int i=0; i < selectedLaneCount; i++) {
                 race.addHorse(horses[i], i);
             }

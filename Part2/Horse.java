@@ -1,7 +1,7 @@
 
 /**
  * @author Luis Oliver
- * @version Version 3
+ * @version Version 4
  */
 public class Horse
 {
@@ -12,7 +12,9 @@ public class Horse
     private boolean hasFallen;
     private double confidence;
     private javax.swing.ImageIcon[] animationFrames;
-private int currentFrameIndex = 0;
+    private int currentFrameIndex = 0;
+    private int racesRan;
+    private int racesWon;
 
     /**
      * Constructor for objects of class Horse
@@ -22,7 +24,10 @@ private int currentFrameIndex = 0;
         this.name = horseName;
         setConfidence(horseConfidence);
         this.distanceTravelled = 0;
-        this.hasFallen = false; }
+        this.hasFallen = false;
+        this.racesRan = 0;
+        this.racesWon = 0; 
+    }
     
     //Other methods of class Horse
     public void fall() {
@@ -83,5 +88,20 @@ private int currentFrameIndex = 0;
         if (animationFrames == null || animationFrames.length == 0) return null;
         currentFrameIndex = (currentFrameIndex + 1) % animationFrames.length;
         return animationFrames[currentFrameIndex];
+    }
+    public void addRacesRan() {
+        racesRan++;
+    }
+    
+    public void addRacesWon() {
+        racesWon++;
+    }
+    
+    public int getRacesRan() {
+        return racesRan;
+    }
+    
+    public int getRacesWon() {
+        return racesWon;
     }
 }

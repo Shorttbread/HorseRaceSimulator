@@ -34,6 +34,11 @@ public class Race {
                 horses[i].goBackToStart();
             }
         }
+        for (int i = 0; i < horses.length; i++) {
+            if (horses[i] != null) {
+                horses[i].addRacesRan();
+            }
+        }
 
         Horse winningHorse = null;
 
@@ -91,6 +96,9 @@ public class Race {
 
         if (winningHorse != null) {
             JOptionPane.showMessageDialog(trackPanel, "And the winner is... " + winningHorse.getName() + "!");
+        }
+        if (winningHorse != null) {
+            winningHorse.addRacesWon();
         }
     }
 
