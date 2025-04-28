@@ -127,7 +127,10 @@ public class Gui {
         horseSelectionButton.setLocation(50, 200);
         frame.add(horseSelectionButton);
 
+        //horse selection button action
         horseSelectionButton.addActionListener(e3 -> {
+
+            //frame generated once the button is clicked
             JFrame horseFrame = new JFrame("Horse Selection");
             horseFrame.setSize(550, 500);
             horseFrame.setLocationRelativeTo(frame);
@@ -136,47 +139,57 @@ public class Gui {
             horseFrame.setLayout(null);
             horseFrame.setVisible(true);
 
+            //label at top
             JLabel selectionLabel = new JLabel("Customise Your Horse:");
             selectionLabel.setBounds(180, 10, 200, 25);
             horseFrame.add(selectionLabel);
 
+            //label to select horse
             JLabel horseLabel = new JLabel("Select Horse:");
             horseLabel.setBounds(100, 50, 150, 25);
             horseFrame.add(horseLabel);
 
-            String[] horses = {"Horse 1", "Horse 2", "Horse 3", "Horse 4", "Horse 5", "Horse 6"};
+            //combobox to change horses indivisually
+            String[] horses = {"Black Caviar", "Colt", "American Pharoah", "Native Dancer", "Midnight", "Hoof Hearted"};
             JComboBox<String> horseBox = new JComboBox<>(horses);
             horseBox.setBounds(250, 50, 150, 25);
             horseFrame.add(horseBox);
 
+            //label to select bread
             JLabel breedLabel = new JLabel("Select Breed:");
             breedLabel.setBounds(100, 100, 150, 25);
             horseFrame.add(breedLabel);
 
+            //horse breed combobox
             String[] breeds = {"Thoroughbred", "Arabian", "Quarter Horse", "Clydesdale"};
             JComboBox<String> breedBox = new JComboBox<>(breeds);
             breedBox.setBounds(250, 100, 150, 25);
             horseFrame.add(breedBox);
 
+            //label for coat colours
             JLabel coatLabel = new JLabel("Select Coat Colour:");
             coatLabel.setBounds(100, 150, 150, 25);
             horseFrame.add(coatLabel);
 
+            //combobox for coat colours
             String[] coats = {"Brown", "Black", "White"};
             JComboBox<String> coatBox = new JComboBox<>(coats);
             coatBox.setBounds(250, 150, 150, 25);
             horseFrame.add(coatBox);
 
+            //preview panel to show what the horse looks like
             JPanel previewPanel = new JPanel();
             previewPanel.setBounds(150, 210, 250, 230);
             previewPanel.setBackground(Color.LIGHT_GRAY);
             horseFrame.add(previewPanel);
 
+            //action to change what the horse looks like depending on coat colour
             coatBox.addActionListener(event -> {
                 String selectedCoat = (String) coatBox.getSelectedItem();
                 int selectedHorse = horseBox.getSelectedIndex();
                 String horseImage = "horses/brown.png"; //the default
 
+                //changes image based on choice
                 if (selectedCoat == null || selectedCoat.equals("brown")) {
                     horseImage = "horses/brown.png";
                 } else if (selectedCoat.equals("Black")) {
@@ -199,6 +212,8 @@ public class Gui {
                 previewPanel.revalidate();
                 previewPanel.repaint();
             });
+
+            //changes breed based on choice
             breedBox.addActionListener(event -> {
                 String selectedBreed = (String) breedBox.getSelectedItem();
                 int selectedHorse = horseBox.getSelectedIndex();
@@ -212,6 +227,7 @@ public class Gui {
         startButton.setLocation(50, 350);
         frame.add(startButton);
 
+        //action for when race is started
         startButton.addActionListener(e -> {
 
             track.removeAll();
@@ -238,7 +254,8 @@ public class Gui {
 
             //set horses and animation frames
             for (int i = 0; i < selectedLaneCount; i++) {
-                horses[i] = new Horse(symbols[i], "Horse " + (i + 1), confidences[i]);
+                horses[i].setConfidence(confidences[i]);
+                horses[i].goBackToStart();  
             
                 if (trackCondition.equals("dry")) {
                     horses[i].setConfidence(horses[i].getConfidence());
