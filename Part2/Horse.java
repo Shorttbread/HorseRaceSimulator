@@ -6,7 +6,7 @@
 public class Horse
 {
     //Fields of class Horse
-    private String name;
+    private final String name;
     private char symbol;
     private int distanceTravelled;
     private boolean hasFallen;
@@ -53,10 +53,6 @@ public class Horse
     
     public void setSymbol(char newSymbol) {
         this.symbol = newSymbol;
-    }
-    
-    public void setName(String newName) {
-        this.name = newName;
     }
 
     public String getName() {
